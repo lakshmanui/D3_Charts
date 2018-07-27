@@ -44,9 +44,9 @@ export class LinechartComponent implements OnInit {
   }
 
   private initSvg() {
-    this.svg = d3.select("svg")
-      .append("g")
-      .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
+    this.svg = d3.select('svg')
+      .append('g')
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
 
   private initAxis() {
@@ -58,20 +58,20 @@ export class LinechartComponent implements OnInit {
   }
 
   private drawAxis() {
-    this.svg.append("g")
-      .attr("class", "axis axis--x")
-      .attr("transform", "translate(0," + this.height + ")")
+    this.svg.append('g')
+      .attr('class', 'axis axis--x')
+      .attr('transform', 'translate(0,' + this.height + ')')
       .call(d3Axis.axisBottom(this.x).tickFormat((d, i) => { return this.myOwn[i].display; }));
 
-    this.svg.append("g")
-      .attr("class", "axis axis--y")
+    this.svg.append('g')
+      .attr('class', 'axis axis--y')
       .call(d3Axis.axisLeft(this.y))
-      .append("text")
-      .attr("class", "axis-title")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
+      .append('text')
+      .attr('class', 'axis-title')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 6)
+      .attr('dy', '.71em')
+      .style('text-anchor', 'end');
   }
 
   private drawLine() {
@@ -79,9 +79,9 @@ export class LinechartComponent implements OnInit {
       .x((d: any) => this.x(d.label))
       .y((d: any) => this.y(d.value));
 
-    this.svg.append("path")
+    this.svg.append('path')
       .datum(this.myOwn)
-      .attr("class", "line")
-      .attr("d", this.line);
+      .attr('class', 'line')
+      .attr('d', this.line);
   }
 }

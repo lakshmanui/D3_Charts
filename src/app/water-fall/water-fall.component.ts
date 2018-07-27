@@ -52,7 +52,7 @@ export class WaterFallComponent implements OnInit {
     this.svg = d3.select('#waterfallchart > svg');
     this.width = +this.svg.attr('width') - this.margin.left - this.margin.right;
     this.height = +this.svg.attr('height') - this.margin.top - this.margin.bottom;
-    this.svg.append('g')
+    this.svg = d3.select('#waterfallchart > svg').append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
 
@@ -70,7 +70,7 @@ export class WaterFallComponent implements OnInit {
       .call(d3Axis.axisBottom(this.x));
     this.svg.append('g')
       .attr('class', 'y axis')
-      .call(d3Axis.axisLeft(this.y).tickFormat((d) => { return d; }));
+      .call(d3Axis.axisLeft(this.y).tickFormat((d) => d / 10000 + 'k'));
   }
 
   private drawBar() {
@@ -97,5 +97,12 @@ export class WaterFallComponent implements OnInit {
       .attr('y1', (d) => this.y(d.end))
       .attr('x2', this.x.bandwidth() / (1 - 0.3) - 5)
       .attr('y2', (d) => this.y(d.end));
+
+    this.svg.append('g')
+      .append('text')
+      .text('Water fall chart')
+      .attr('class', 'title')
+      .attr('x', this.width / 4)
+      .attr('y', this.margin.top);
   }
 }
