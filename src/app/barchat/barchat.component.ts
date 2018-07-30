@@ -83,7 +83,6 @@ export class BarchatComponent implements OnInit {
       .on('mouseout', this.tip.hide);
     this.svg.append('g')
       .append('text')
-      .text('Bar chart kumar')
       .attr('class', 'title')
       .attr('x', this.width / 4)
       .attr('y', this.margin.bottom);

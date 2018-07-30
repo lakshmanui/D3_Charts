@@ -100,7 +100,6 @@ export class WaterFallComponent implements OnInit {
 
     this.svg.append('g')
       .append('text')
-      .text('Water fall chart')
       .attr('class', 'title')
       .attr('x', this.width / 4)
       .attr('y', this.margin.top);
