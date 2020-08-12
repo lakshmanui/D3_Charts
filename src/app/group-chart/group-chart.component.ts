@@ -71,7 +71,11 @@ export class GroupChartComponent implements OnInit {
     this.g.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + this.height + ')')
+<<<<<<< HEAD
       .call(d3Axis.axisBottom(this.x0).tickFormat((d, i) => this.titles[i]));
+=======
+      .call(d3Axis.axisBottom(this.x0));
+>>>>>>> 23b6eaf892a2831c3acf39bca2c4f9a3b67056f3
 
     this.g.append('g')
       .attr('class', 'y axis')

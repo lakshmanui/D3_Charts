@@ -60,7 +60,11 @@ export class BarchatComponent implements OnInit {
       .call(d3Axis.axisBottom(this.x));
     this.g.append('g')
       .attr('class', 'axis axis--y')
+<<<<<<< HEAD
       .call(d3Axis.axisLeft(this.y).tickFormat((d, i) => d / 1000 + 'k'))
+=======
+      .call(d3Axis.axisLeft(this.y).tickFormat((d, i) => d / 10000 + 'k'))
+>>>>>>> 23b6eaf892a2831c3acf39bca2c4f9a3b67056f3
       .call(this.tip)
       .append('text')
       .attr('class', 'axis-title')
@@ -79,6 +83,11 @@ export class BarchatComponent implements OnInit {
       .attr('y', (d) => this.y(d.y))
       .attr('width', this.x.bandwidth())
       .attr('height', (d) => this.height - this.y(d.y))
+<<<<<<< HEAD
+=======
+      .on('mouseover', this.tip.show)
+      .on('mouseout', this.tip.hide);
+>>>>>>> 23b6eaf892a2831c3acf39bca2c4f9a3b67056f3
     this.svg.append('g')
       .append('text')
       .attr('class', 'title')

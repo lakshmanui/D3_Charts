@@ -45,10 +45,15 @@ export class LinechartComponent implements OnInit {
   }
 
   private initSvg() {
+<<<<<<< HEAD
     this.svg = d3.select('#linechart > svg');
     this.width = +this.svg.attr('width') - this.margin.left - this.margin.right;
     this.height = +this.svg.attr('height') - this.margin.top - this.margin.bottom;
     this.g = this.svg.append('g')
+=======
+    this.svg = d3.select('svg')
+      .append('g')
+>>>>>>> 23b6eaf892a2831c3acf39bca2c4f9a3b67056f3
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
 
@@ -60,12 +65,21 @@ export class LinechartComponent implements OnInit {
   }
 
   private drawAxis() {
+<<<<<<< HEAD
     this.g.append('g')
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + this.height + ')')
       .call(d3Axis.axisBottom(this.x).tickFormat((d, i) => { return this.myOwn[i] && this.myOwn[i].display; }));
 
     this.g.append('g')
+=======
+    this.svg.append('g')
+      .attr('class', 'axis axis--x')
+      .attr('transform', 'translate(0,' + this.height + ')')
+      .call(d3Axis.axisBottom(this.x).tickFormat((d, i) => { return this.myOwn[i].display; }));
+
+    this.svg.append('g')
+>>>>>>> 23b6eaf892a2831c3acf39bca2c4f9a3b67056f3
       .attr('class', 'axis axis--y')
       .call(d3Axis.axisLeft(this.y))
       .append('text')
