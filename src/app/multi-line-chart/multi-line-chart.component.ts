@@ -5,7 +5,7 @@ import * as d3Shape from 'd3-shape';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
 import * as _ from 'lodash';
-import {multiLineChartData} from '../example';
+import { multiLineChartData } from '../example';
 @Component({
   selector: 'app-multi-line-chart',
   templateUrl: './multi-line-chart.component.html',
@@ -19,7 +19,7 @@ export class MultiLineChartComponent implements OnInit {
   data: any;
 
   svg: any;
-  margin = {top: 20, right: 80, bottom: 30, left: 50};
+  margin = { top: 20, right: 80, bottom: 30, left: 50 };
   g: any;
   width: number;
   height: number;
@@ -27,15 +27,31 @@ export class MultiLineChartComponent implements OnInit {
   y;
   z;
   line;
+  source = [];
+
 
   constructor() {
 
   }
 
   ngOnInit() {
-
-    this.data = multiLineChartData.map((v) => v.values.map((v) => v.date ))[0];
-                            //.reduce((a, b) => a.concat(b), []);
+    multiLineChartData.map((value) => {
+      value.values.forEach((v, i) => {
+        const val = this.source.find((val) => val.id === i)
+        if (val) {
+          this.source[val.id].new = v.temperature;
+        } else {
+          this.source.push({
+            id: i,
+            date: v.date,
+            san: v.temperature,
+            new: ''
+          })
+        }
+      });
+    });
+    this.data = multiLineChartData.map((v) => v.values.map((v) => v.date))[0];
+    //.reduce((a, b) => a.concat(b), []);
     this.initChart();
     this.drawAxis();
     this.drawPath();
@@ -54,18 +70,18 @@ export class MultiLineChartComponent implements OnInit {
     this.z = d3Scale.scaleOrdinal(d3Scale.schemeCategory10);
 
     this.line = d3Shape.line()
-                       .curve(d3Shape.curveBasis)
-                       .x( (d: any) => this.x(d.date) )
-                       .y( (d: any) => this.y(d.temperature) );
+      .curve(d3Shape.curveBasis)
+      .x((d: any) => this.x(d.date))
+      .y((d: any) => this.y(d.temperature));
 
-    this.x.domain(d3Array.extent(this.data, (d: Date) => d ));
+    this.x.domain(d3Array.extent(this.data, (d: Date) => d));
 
     this.y.domain([
-      d3Array.min(multiLineChartData, function(c) { return d3Array.min(c.values, function(d) { return d.temperature; }); }),
-      d3Array.max(multiLineChartData, function(c) { return d3Array.max(c.values, function(d) { return d.temperature; }); })
+      d3Array.min(multiLineChartData, function (c) { return d3Array.min(c.values, function (d) { return d.temperature; }); }),
+      d3Array.max(multiLineChartData, function (c) { return d3Array.max(c.values, function (d) { return d.temperature; }); })
     ]);
 
-    this.z.domain(multiLineChartData.map(function(c) { return c.id; }));
+    this.z.domain(multiLineChartData.map(function (c) { return c.id; }));
   }
 
   private drawAxis(): void {
@@ -93,15 +109,15 @@ export class MultiLineChartComponent implements OnInit {
 
     city.append('path')
       .attr('class', 'line')
-      .attr('d', (d) => this.line(d.values) )
-      .style('stroke', (d) => this.z(d.id) );
+      .attr('d', (d) => this.line(d.values))
+      .style('stroke', (d) => this.z(d.id));
 
     city.append('text')
-      .datum(function(d) { return {id: d.id, value: d.values[d.values.length - 1]}; })
-      .attr('transform', (d) => 'translate(' + this.x(d.value.date) + ',' + this.y(d.value.temperature) + ')' )
+      .datum(function (d) { return { id: d.id, value: d.values[d.values.length - 1] }; })
+      .attr('transform', (d) => 'translate(' + this.x(d.value.date) + ',' + this.y(d.value.temperature) + ')')
       .attr('x', 3)
       .attr('dy', '0.35em')
       .style('font', '10px sans-serif')
-      .text(function(d) { return d.id; });
+      .text(function (d) { return d.id; });
   }
 }

@@ -26,6 +26,7 @@ export class GroupChartComponent implements OnInit {
   private options;
   private maxNumberOfKeys;
   private source = groupedBarChartData.data[0].values;
+  private titles = groupedBarChartData.data[0].titles;
 
   constructor() {
 
@@ -47,19 +48,19 @@ export class GroupChartComponent implements OnInit {
   }
 
   private initSvg() {
-    this.svg = d3.select("svg");
-    this.width = +this.svg.attr("width") - this.margin.left - this.margin.right;
-    this.height = +this.svg.attr("height") - this.margin.top - this.margin.bottom;
-    this.g = this.svg.append("g")
-      .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
+    this.svg = d3.select('svg');
+    this.width = +this.svg.attr('width') - this.margin.left - this.margin.right;
+    this.height = +this.svg.attr('height') - this.margin.top - this.margin.bottom;
+    this.g = this.svg.append('g')
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
 
   private initAxis() {
     this.x0 = d3Scale.scaleBand().range([0, this.width]);
     this.x1 = d3Scale.scaleBand().padding(0.10);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
-    this.z = d3Scale.scaleOrdinal().range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-    this.options = d3Collection.keys(this.source[this.maxNumberOfKeys]).filter((key) => { return key !== "label"; });
+    this.z = d3Scale.scaleOrdinal().range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00']);
+    this.options = d3Collection.keys(this.source[this.maxNumberOfKeys]).filter((key) => { return key !== 'label'; });
     this.x0.domain(this.source.map((d) => { return d.x; }));
     this.x1.domain(this.options).rangeRound([0, this.x0.bandwidth()]);
     this.y.domain([0, d3Array.max(this.source, (d) => { return d3Array.max(this.options, (key) => { return d[key]; }); })]);
@@ -67,36 +68,36 @@ export class GroupChartComponent implements OnInit {
 
   private drawAxis() {
 
-    this.g.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + this.height + ")")
-      .call(d3Axis.axisBottom(this.x0));
+    this.g.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + this.height + ')')
+      .call(d3Axis.axisBottom(this.x0).tickFormat((d, i) => this.titles[i]));
 
-    this.g.append("g")
-      .attr("class", "y axis")
+    this.g.append('g')
+      .attr('class', 'y axis')
       .call(d3Axis.axisLeft(this.y))
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", this.y(this.y.ticks().pop()) + 0.5)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Satisfaction %");
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', this.y(this.y.ticks().pop()) + 0.5)
+      .attr('dy', '.71em')
+      .style('text-anchor', 'end')
+      .text('Satisfaction %');
   }
 
   private drawBars() {
-    this.g.selectAll(".bar")
+    this.g.selectAll('.bar')
       .data(this.source)
       .enter().append('g')
       .attr('class', 'rect')
-      .attr('transform', (d) => { return "translate(" + this.x0(d.x) + ",0)"; })
+      .attr('transform', (d) => { return 'translate(' + this.x0(d.x) + ',0)'; })
       .selectAll('rect')
       .data((d) => { return this.options.map((key) => { return { key: key, value: d[key] ? d[key] : 0 }; }); })
-      .enter().append("rect")
-      .attr("width", this.x1.bandwidth())
-      .attr("x", (d) => { return this.x1(d.key); })
-      .attr("y", (d) => { return this.y(d.value); })
-      .attr("height", (d) => { return this.height - this.y(d.value); })
-      .attr("fill", (d) => { return this.z(d.key); });
+      .enter().append('rect')
+      .attr('width', this.x1.bandwidth())
+      .attr('x', (d) => { return this.x1(d.key); })
+      .attr('y', (d) => { return this.y(d.value); })
+      .attr('height', (d) => { return this.height - this.y(d.value); })
+      .attr('fill', (d) => { return this.z(d.key); });
 
   }
 }
