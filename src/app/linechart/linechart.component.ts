@@ -4,7 +4,7 @@ import * as d3Scale from 'd3-scale';
 import * as d3Shape from 'd3-shape';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
-import { lineChart } from '../example';
+import { lineChart} from '../example';
 @Component({
   selector: 'app-linechart',
   templateUrl: './linechart.component.html',
@@ -18,14 +18,13 @@ export class LinechartComponent implements OnInit {
   private height: number;
   private x: any;
   private y: any;
-  private g: any;
   private svg: any;
   private line: d3Shape.Line<[number, number]>;
   private myOwn = [];
 
   constructor() {
-
-
+    this.width = 900 - this.margin.left - this.margin.right;
+    this.height = 500 - this.margin.top - this.margin.bottom;
   }
 
   ngOnInit() {
@@ -45,19 +44,13 @@ export class LinechartComponent implements OnInit {
   }
 
   private initSvg() {
-<<<<<<< HEAD
-    this.svg = d3.select('#linechart > svg');
-    this.width = +this.svg.attr('width') - this.margin.left - this.margin.right;
-    this.height = +this.svg.attr('height') - this.margin.top - this.margin.bottom;
-    this.g = this.svg.append('g')
-=======
-    this.svg = d3.select('svg')
-      .append('g')
->>>>>>> 23b6eaf892a2831c3acf39bca2c4f9a3b67056f3
-      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+    this.svg = d3.select("svg")
+      .append("g")
+      .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
   }
 
   private initAxis() {
+    const tooltip = d3.select('#tooltip');
     this.x = d3Scale.scaleLinear().range([0, this.width]);
     this.y = d3Scale.scaleLinear().range([this.height, 0]);
     this.x.domain(d3Array.extent(this.myOwn, (d) => d.label));
@@ -65,29 +58,20 @@ export class LinechartComponent implements OnInit {
   }
 
   private drawAxis() {
-<<<<<<< HEAD
-    this.g.append('g')
-      .attr('class', 'axis axis--x')
-      .attr('transform', 'translate(0,' + this.height + ')')
-      .call(d3Axis.axisBottom(this.x).tickFormat((d, i) => { return this.myOwn[i] && this.myOwn[i].display; }));
-
-    this.g.append('g')
-=======
-    this.svg.append('g')
-      .attr('class', 'axis axis--x')
-      .attr('transform', 'translate(0,' + this.height + ')')
+    this.svg.append("g")
+      .attr("class", "axis axis--x")
+      .attr("transform", "translate(0," + this.height + ")")
       .call(d3Axis.axisBottom(this.x).tickFormat((d, i) => { return this.myOwn[i].display; }));
 
-    this.svg.append('g')
->>>>>>> 23b6eaf892a2831c3acf39bca2c4f9a3b67056f3
-      .attr('class', 'axis axis--y')
+    this.svg.append("g")
+      .attr("class", "axis axis--y")
       .call(d3Axis.axisLeft(this.y))
-      .append('text')
-      .attr('class', 'axis-title')
-      .attr('transform', 'rotate(-90)')
-      .attr('y', 6)
-      .attr('dy', '.71em')
-      .style('text-anchor', 'end');
+      .append("text")
+      .attr("class", "axis-title")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
   }
 
   private drawLine() {
@@ -95,9 +79,9 @@ export class LinechartComponent implements OnInit {
       .x((d: any) => this.x(d.label))
       .y((d: any) => this.y(d.value));
 
-    this.svg.append('path')
+    this.svg.append("path")
       .datum(this.myOwn)
-      .attr('class', 'line')
-      .attr('d', this.line);
+      .attr("class", "line")
+      .attr("d", this.line);
   }
 }
