@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MultiBarChartComponent } from './multi-bar-chart.component';
+import { StackedBarChartComponent } from './stacked-bar-chart.component';
 
 describe('MultiBarChartComponent', () => {
-  let component: MultiBarChartComponent;
-  let fixture: ComponentFixture<MultiBarChartComponent>;
+  let component: StackedBarChartComponent;
+  let fixture: ComponentFixture<StackedBarChartComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MultiBarChartComponent ]
+      declarations: [ StackedBarChartComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MultiBarChartComponent);
+    fixture = TestBed.createComponent(StackedBarChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

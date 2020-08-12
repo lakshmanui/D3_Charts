@@ -12,11 +12,11 @@ export interface Margin {
     left: number;
 }
 @Component({
-    selector: 'app-multi-bar-chart',
-    templateUrl: './multi-bar-chart.component.html',
-    styleUrls: ['./multi-bar-chart.component.css']
+    selector: 'app-stacked-bar-chart',
+    templateUrl: './stacked-bar-chart.component.html',
+    styleUrls: ['./stacked-bar-chart.component.css']
 })
-export class MultiBarChartComponent implements OnInit {
+export class StackedBarChartComponent implements OnInit {
 
     title: string = 'D3.js with Angular 2!';
     subtitle: string = 'Stacked Bar Chart';

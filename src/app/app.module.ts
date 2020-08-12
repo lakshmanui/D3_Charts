@@ -8,7 +8,7 @@ import { BarchatComponent } from './barchat/barchat.component';
 import { DonutChartComponent } from './donut-chart/donut-chart.component';
 import {AppRoutingModule} from './app.routing.module';
 import { MultiLineChartComponent } from './multi-line-chart/multi-line-chart.component';
-import { MultiBarChartComponent } from './multi-bar-chart/multi-bar-chart.component';
+import { StackedBarChartComponent } from './stacked-bar-chart/stacked-bar-chart.component';
 import { GroupChartComponent } from './group-chart/group-chart.component';
 import { AreaChartComponent } from './area-chart/area-chart.component';
 import { WaterFallComponent } from './water-fall/water-fall.component';
@@ -22,7 +22,7 @@ import { WaterFallComponent } from './water-fall/water-fall.component';
     BarchatComponent,
     DonutChartComponent,
     MultiLineChartComponent,
-    MultiBarChartComponent,
+    StackedBarChartComponent,
     GroupChartComponent,
     AreaChartComponent,
     WaterFallComponent
